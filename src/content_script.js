@@ -96,6 +96,11 @@ function soItGoes(searchText, replacement, searchNode) {
                     // Make copy to format, strip all whitespace on the right
                     var newSentence = reSentences[j].replace(/~+$/, '');
 
+                    // Make sure we don't add double if it already ends with the replacement
+                    if(endsWith(newSentence.trim(), replacement)) {
+                        continue;
+                    }
+
                     // If it doesn't end in any punctuation add a period
                     if(!endsWith(newSentence.trim(), ["!","?","."])) {
                         newSentence = newSentence + '.';
