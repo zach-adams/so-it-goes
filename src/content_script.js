@@ -1,5 +1,5 @@
 /**
- * “All this happened, more or less.” 
+ * “All this happened, more or less.”
  * ~ Kurt Vonnegut, Slaughterhouse-Five
  */
 
@@ -43,20 +43,19 @@ function soItGoes(searchText, replacement, searchNode) {
 
     while (cnLength--) {
 
-        /**
-         * If this is an element node recall this function
-         */
         var currentNode = childNodes[cnLength];
 
+        /**
+         * If this is an element node recall this function on that element
+         */
         if (currentNode.nodeType === 1 && excludes.indexOf(currentNode.nodeName.toLowerCase()) === -1) {
             arguments.callee(searchText, replacement, currentNode);
         }
 
         /**
-         * If this is not a text node or this text node does not have any "death" words in it we'll move along
+         * If this is not a text node or this text node does not have any keywords in it we'll move along
          */
         if (currentNode.nodeType !== 3 || !regex.test(currentNode.data) ) {
-            //console.table([currentNode.nodeType, currentNode]);
             continue;
         }
 
@@ -67,10 +66,17 @@ function soItGoes(searchText, replacement, searchNode) {
         var parent = currentNode.parentNode,
             frag = (function(){
 
+                var html = currentNode.data;
+
+                // Kind of a hacky work-around but we'll just remove any instance of our replacement to prevent doubles
+                html = html.replace(replacement, '');
+
                 /**
                  * Split each sentence and add it to an array
+                 * http://stackoverflow.com/a/31430385
                  */
-            	var sentences = currentNode.data.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+            	var sentences = html.replace(/(\.+|\:|\!|\?)(\"*|\'*|\)*|}*|]*)(\s|\n|\r|\r\n)/gm, "$1$2|").split("|");
+
             	var reSentences = [];
 
                 /**
@@ -78,6 +84,7 @@ function soItGoes(searchText, replacement, searchNode) {
                  */
             	for(var i = 0; i < sentences.length; i++) {
 
+                    // If it doesn't contain a keyword move onto next sentence
             		if(!senRegex.test(sentences[i])) {
             			continue;
             		}
@@ -85,8 +92,6 @@ function soItGoes(searchText, replacement, searchNode) {
             		reSentences.push(sentences[i]);
 
             	}
-
-            	var html = currentNode.data;
 
                 /**
                  * For every sentence with a keyword clean it up a bit then replace it with the copy with the replacement
@@ -140,6 +145,7 @@ var soItGoesPhrases = [
 	"assassinated",
 	"executed",
 	"killed",
+    "killing",
 	"drowned",
 	"massacred",
 	"slain",
