@@ -75,7 +75,7 @@ function soItGoes(searchText, replacement, searchNode) {
 				 * Split each sentence and add it to an array
 				 * http://stackoverflow.com/a/31430385
 				 */
-				var sentences = html.replace(/(\.+|\:|\!|\?)(\"*|\'*|\)*|}*|]*)(\s|\n|\r|\r\n)/gm, "$1$2|").split("|");
+				var sentences = html.replace(/(\.+|\!|\?)(\"*|\'*|\)*|}*|]*)(\s|\n|\r|\r\n)/gm, "$1$2|").split("|");
 
 				var reSentences = [];
 
