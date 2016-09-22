@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "in-view": "^0.4.3",
+    "natural": "^0.4.0",
+    "string": "^3.3.1",
+    "underscore.string": "^3.3.4"
+  }
+}
